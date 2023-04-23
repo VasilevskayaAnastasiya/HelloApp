@@ -17,6 +17,7 @@ public class Main {
             System.out.println("Выберите пункт меню: ");
             System.out.println("0 - Выход");
             System.out.println("1 - Число наоброт");
+            System.out.println("2 - Сумма вклада");
             System.out.println("**********************");
             if (sc.hasNextInt()) {
                 int taskid = sc.nextInt();
@@ -34,15 +35,10 @@ public class Main {
     public static void selectTask(int task) {
         switch (task) {
             case 1:
-                System.out.println("Введите число больше 0: ");
-                if (sc.hasNextInt()) {
-                    int num = sc.nextInt();
-                    taskIntRevert(num);
-                }else{
-                    String test = sc.nextLine();
-                    System.out.println(ANSI_RED + "Ошибка: введено не число ("+test+")" + ANSI_RESET);
-                    selectTask(1);
-                }
+                taskIntRevert(task);
+                break;
+            case 2:
+                taskCalcSumDeposit(task);
                 break;
             default:
                 System.out.println(ANSI_RED + "Ошибка: неверный пункт меню" + ANSI_RESET);
@@ -50,7 +46,16 @@ public class Main {
         }
     }
 
-    public static void taskIntRevert(int num){
+    public static void taskIntRevert(int task){
+
+        int num = 0;
+        System.out.println("Введите число больше 0: ");
+        if (sc.hasNextInt()) {
+            num = sc.nextInt();
+        }else{
+            showErrorType(task);
+        }
+
         if(num < 0){
             System.out.println(ANSI_RED + "Ошибка: число меньше 0" + ANSI_RESET);
             selectTask(1);
@@ -69,5 +74,49 @@ public class Main {
         } else {
             return (revertnum + mod) * 10 + i;
         }
+    }
+
+    public static void taskCalcSumDeposit(int task){
+        int sum = 0;
+        float perc = 0;
+        int years = 0;
+        System.out.println("Вклад на сумму: ");
+        if (sc.hasNextInt()) {
+            sum = sc.nextInt();
+        }else{
+            showErrorType(task);
+        }
+
+        System.out.println("Под процент: ");
+        if(sc.hasNextFloat()){
+            perc = sc.nextFloat();
+        }else{
+            showErrorType(task);
+        }
+
+        System.out.println("На количество лет: ");
+        if(sc.hasNextInt()){
+            years = sc.nextInt();
+        }else{
+            showErrorType(task);
+        }
+
+        if(sum <=0 || perc <= 0 || years <= 0){
+            System.out.println(ANSI_RED + "Ошибка: значения должны быть больше 0" + ANSI_RESET);
+            selectTask(task);
+        }
+
+        float result = sum;
+        for (int i = 0; i < years; i++){
+            result += result*perc/100;
+        }
+        float percSum = result - sum;
+        System.out.printf("Сумма процентов за %d года равна %.2f. Итого: %.2f \n", years, percSum, result);
+    }
+
+    public static void showErrorType(int task){
+        String test = sc.nextLine();
+        System.out.println(ANSI_RED + "Ошибка: неверный формат ввода ("+test+")" + ANSI_RESET);
+        selectTask(task);
     }
 }
