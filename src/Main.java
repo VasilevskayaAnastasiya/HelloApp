@@ -12,6 +12,11 @@ public class Main {
     public static final String ANSI_RED = "\u001B[31m";
 
     public static void main(String[] args) {
+        Lesson2 lesson2 = new Lesson2();
+        lesson2.lesson2();
+    }
+
+    public static void lesson1(){
         while (true) {
             System.out.println("**********************");
             System.out.println("Выберите пункт меню: ");
@@ -30,7 +35,6 @@ public class Main {
             }
         }
     }
-
     public static void selectTask(int task) {
         switch (task) {
             case 1:
