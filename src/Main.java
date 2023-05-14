@@ -12,8 +12,11 @@ public class Main {
     public static final String ANSI_RED = "\u001B[31m";
 
     public static void main(String[] args) {
-        Lesson2 lesson2 = new Lesson2();
-        lesson2.lesson2();
+//        Lesson2 lesson2 = new Lesson2();
+//        lesson2.lesson2();
+
+        Lesson3 lesson3 = new Lesson3();
+        lesson3.lesson3();
     }
 
     public static void lesson1(){
